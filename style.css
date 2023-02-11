@@ -51,6 +51,11 @@ header {
   width: 80%;
   margin: 10px auto;
   padding: 10px 10px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: space-around;
 }
 
 .card {
