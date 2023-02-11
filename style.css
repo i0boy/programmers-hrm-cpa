@@ -60,8 +60,9 @@ header {
 
 .card {
   margin: 20px 10px;
-  width: 100px;
-  height: 100px;
+  width: 200px;
+  height: 260px;
+  cursor: pointer;
   border-radius: 25px;
   transform-style: preserve-3d;
   transform-origin: center right;
@@ -81,6 +82,7 @@ header {
   font-weight: 500;
   font-size: 20px;
   color: black;
+  -webkit-backface-visibility: hidden;
   backface-visibility: hidden;
 }
 
