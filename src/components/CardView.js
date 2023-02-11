@@ -14,11 +14,9 @@ class CardView {
   render() {
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("id", "cards_container");
-
     const personalInfo = getPersonalInfo();
-    console.log(personalInfo);
     personalInfo.forEach((cardData, i) => {
-      const card = cardDiv(i);
+      const card = cardDiv(i + "");
       card.appendChild(cardPlane("front", cardData.nickname));
       card.appendChild(cardPlane("back", cardData.mbti));
       containerDiv.appendChild(card);

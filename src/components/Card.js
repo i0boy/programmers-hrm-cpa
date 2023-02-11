@@ -1,12 +1,22 @@
+import { getCardStatus, setCardStatus } from "./Storage.js";
+
 /**
  * 카드 레이아웃 요소
- * @param {string|number} index
+ * @param {string} index
  * @returns HTMLDivElement
  */
 export const cardDiv = (index) => {
   const card_div = document.createElement("div");
   card_div.setAttribute("idx", index + "");
-  card_div.setAttribute("class", "card");
+  card_div.setAttribute("class", getCardStatus(index));
+  card_div.addEventListener("click", (e) => {
+    const toggleResult = card_div.classList.toggle("is-flipped");
+    if (toggleResult) {
+      setCardStatus(index, "card is-flipped");
+    } else {
+      setCardStatus(index, "card");
+    }
+  });
 
   return card_div;
 };

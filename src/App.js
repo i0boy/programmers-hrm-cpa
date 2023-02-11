@@ -33,14 +33,23 @@ class App {
     const title = new ContentTitle(this.$main, "Great PeoPle");
     return { header, homePage, title, signupPage };
   }
-  initMainPageComonents(/**@type {{render : ()=>void}[]} */ ...mainComponents) {
+  initMainPageComponents(
+    /**@type {{render : ()=>void}[]} */ ...mainComponents
+  ) {
     mainComponents.forEach((e) => e.render());
+  }
+  async initDataDependantComponents(
+    /**@type {{render : ()=>void}[]} */ ...mainComponents
+  ) {
+    await this.initData();
+    mainComponents.forEach((e) => e.render());
+    return;
   }
 
   async render() {
     const { header, homePage, signupPage, title } = this.initComponents();
-    this.initMainPageComonents(header, title, homePage);
-    await this.initData();
+    this.initMainPageComponents(header, title);
+    await this.initDataDependantComponents(homePage);
     // TODO: 라우터로 이동
     document.addEventListener(
       "urlchange",
