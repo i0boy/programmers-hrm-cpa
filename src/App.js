@@ -22,24 +22,36 @@ class App {
     return main;
   }
 
-  async render() {
+  async initData() {
+    return await setPersonalInfo();
+  }
+
+  initComponents() {
     const header = new Header(this.$main);
     const homePage = new HomePage(this.$main);
     const signupPage = new SignupPage(this.$main);
     const title = new ContentTitle(this.$main, "Great PeoPle");
-    header.render();
-    title.render();
-    await setPersonalInfo();
+    return { header, homePage, title, signupPage };
+  }
+  initMainPageComonents(/**@type {{render : ()=>void}[]} */ ...mainComponents) {
+    mainComponents.forEach((e) => e.render());
+  }
+
+  async render() {
+    const { header, homePage, signupPage, title } = this.initComponents();
+    this.initMainPageComonents(header, title, homePage);
+    await this.initData();
     // TODO: 라우터로 이동
     document.addEventListener(
       "urlchange",
       (/**@type{{detail:{href:string}} & Event} */ e) => {
         let pathname = e.detail.href;
+        if (e.detail.href === window.location.pathname) return;
         switch (pathname) {
-          case "/web/":
+          case "/":
             homePage.render();
             break;
-          case "/web/signup":
+          case "/signup":
             signupPage.render();
             break;
           default:

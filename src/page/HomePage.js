@@ -1,8 +1,13 @@
+import CardView from "../components/CardView.js";
+
 class HomePage {
-  constructor($main) {
+  constructor(/**@type{HTMLElement}*/ $main) {
     this.$main = $main;
   }
 
-  render() {}
+  render() {
+    const cardView = new CardView(this.$main);
+    cardView.render();
+  }
 }
 export default HomePage;

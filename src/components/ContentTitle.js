@@ -5,6 +5,10 @@
  *   <h1> CardView </h1> <-- CardView 텍스트를 받아 텍스트 노드로 만듬.
  * </div>
  */
+/**
+ * @typedef {{render : ()=>void}} Component
+ * @implements {Component}
+ * */
 class ContentTitle {
   constructor($main, $title) {
     this.$main = $main;

@@ -12,6 +12,10 @@ import { createUrlChangeEvent } from "../util/event.js";
         </div>
     </header>
  */
+/**
+ * @typedef {{render : ()=>void}} Component
+ * @implements {Component}
+ * */
 class Header {
   constructor($body) {
     this.$body = $body;
@@ -50,9 +54,9 @@ class Header {
       "HOME"
     );
     this.addEventListener(home_menu, "click", () => {
-      window.history.pushState("", "", "/web/");
+      window.history.pushState("", "", "/");
       const urlChange = createUrlChangeEvent({
-        detail: { href: "/web/" },
+        detail: { href: "/" },
       });
       document.dispatchEvent(urlChange);
     });
@@ -63,9 +67,9 @@ class Header {
       "SIGNUP"
     );
     this.addEventListener(signup_menu, "click", () => {
-      window.history.pushState("", "", "/web/signup");
+      window.history.pushState("", "", "/signup");
       const urlChange = createUrlChangeEvent({
-        detail: { href: "/web/signup" },
+        detail: { href: "/signup" },
       });
       document.dispatchEvent(urlChange);
     });

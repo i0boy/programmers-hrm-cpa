@@ -1,10 +1,25 @@
+import new_data from "../data/new_data.js";
+const personalInfoToken = "personalInfo";
+/**
+ * @typedef {{
+    name: string;
+    email: string;
+    nickname: string;
+    role?: string;
+    mbti?: string; }} PersonalInfo
+ */
+
+/**@type{() => Promise<void>} */
 export const setPersonalInfo = async () => {
-  const response = await fetch(
-    "https://pr-0658a688646a585a1.programmers.co.kr:49226/web/src/data/new_data.json"
-  );
-  const data = await response.json();
+  const data = await Promise.resolve(new_data);
   console.log(data);
-  if (!localStorage.getItem("personalInfo")) {
-    localStorage.setItem("personalInfo", data);
+  if (!localStorage.getItem(personalInfoToken)) {
+    localStorage.setItem(personalInfoToken, JSON.stringify(data));
   }
+};
+
+/**@type{() => PersonalInfo[]} */
+export const getPersonalInfo = () => {
+  const data = JSON.parse(localStorage.getItem(personalInfoToken));
+  return data;
 };
