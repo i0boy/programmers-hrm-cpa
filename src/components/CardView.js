@@ -7,18 +7,20 @@ import { getPersonalInfo } from "./Storage.js";
  * @implements {Component}
  * */
 class CardView {
-  constructor(/**@type{HTMLElement}*/ $main) {
+  constructor(/**@type{HTMLElement}*/ $main, $renderedUrl) {
     this.$main = $main;
+    this.$renderedUrl = $renderedUrl;
   }
 
   infiniteScroll(/**@type{HTMLElement}*/ container) {
     const target = () =>
       document.getElementById("cards_container").lastElementChild;
-
-    console.log(document.getElementById("cards_container"));
     const personalInfo = getPersonalInfo();
     const io = new IntersectionObserver(
       (entry) => {
+        if (window.location.pathname !== this.$renderedUrl) {
+          return;
+        }
         if (entry[0].isIntersecting) {
           const currentCardsCount =
             document.getElementById("cards_container").childElementCount;

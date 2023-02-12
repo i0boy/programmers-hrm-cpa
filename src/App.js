@@ -2,7 +2,7 @@ import Header from "./components/Header.js";
 import ContentTitle from "./components/ContentTitle.js";
 import { setPersonalInfo } from "./components/Storage.js";
 import HomePage from "./page/HomePage.js";
-import SignupPage from "./page/HomePage.js";
+import SignupPage from "./page/SignupPage.js";
 
 /**
  * App Instance
@@ -16,6 +16,7 @@ class App {
     this.render();
   }
   initMain($body) {
+    $body.innerHtml = "";
     const main = document.createElement("main");
     main.setAttribute("id", "page_content");
     $body.appendChild(main);
@@ -30,8 +31,7 @@ class App {
     const header = new Header(this.$main);
     const homePage = new HomePage(this.$main);
     const signupPage = new SignupPage(this.$main);
-    const title = new ContentTitle(this.$main, "Great PeoPle");
-    return { header, homePage, title, signupPage };
+    return { header, homePage, signupPage };
   }
   initMainPageComponents(
     /**@type {{render : ()=>void}[]} */ ...mainComponents
@@ -46,27 +46,35 @@ class App {
     return;
   }
 
+  async initComponentByUrl() {
+    this.$main.innerHTML = "";
+    const { header, homePage, signupPage } = this.initComponents();
+    this.initMainPageComponents(header);
+    if (location.pathname === "/") {
+      await this.initDataDependantComponents(homePage);
+      return;
+    }
+    if (location.pathname === "/signup") {
+      signupPage.render();
+      return;
+    }
+  }
+
   async render() {
-    const { header, homePage, signupPage, title } = this.initComponents();
-    this.initMainPageComponents(header, title);
-    await this.initDataDependantComponents(homePage);
+    this.initComponentByUrl();
     // TODO: 라우터로 이동
     document.addEventListener(
       "urlchange",
       (/**@type{{detail:{href:string}} & Event} */ e) => {
         let pathname = e.detail.href;
-        if (e.detail.href === window.location.pathname) return;
-        switch (pathname) {
-          case "/":
-            homePage.render();
-            break;
-          case "/signup":
-            signupPage.render();
-            break;
-          default:
+        if (location.pathname === pathname) {
+          return;
         }
+        window.history.pushState("", "", pathname);
+        this.initComponentByUrl();
       }
     );
   }
 }
+
 export default App;

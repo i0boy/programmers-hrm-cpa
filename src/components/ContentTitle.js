@@ -8,6 +8,7 @@
 /**
  * @typedef {{render : ()=>void}} Component
  * @implements {Component}
+ * 
  * */
 class ContentTitle {
   constructor($main, $title) {

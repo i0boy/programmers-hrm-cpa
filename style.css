@@ -101,6 +101,7 @@ header {
 }
 
 .card_plane--back {
+  /** 앞에 있는걸 뒤로 돌려 뒤로감**/
   transform: rotateY(180deg);
   background: #f2f2f2;
   color: #3098f2;
@@ -126,6 +127,8 @@ header {
   border-radius: 1rem;
   box-sizing: border-box;
   background: none;
+  font-size: 1em;
+  color: #5a5c66;
 }
 
 .form_elem select {
@@ -135,6 +138,8 @@ header {
   border-radius: 1rem;
   box-sizing: border-box;
   background: none;
+  font-size: 1em;
+  color: #5a5c66;
 }
 
 .form_elem button {
@@ -143,5 +148,23 @@ header {
   border: 0;
   border-radius: 1rem;
   box-sizing: border-box;
-  background: #dedede;
+  font-size: 1em;
+  background: #29323c;
+  color: #ffffff;
+}
+
+.form_elem button:hover {
+  cursor: pointer;
+  background: #637488;
+}
+
+.form_elem label {
+  display: flex;
+  padding: 3px 5px;
+  font-size: 0.7em;
+  color: #5a5c66;
+}
+
+span.mark {
+  color: #ff0000;
 }

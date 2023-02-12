@@ -54,7 +54,6 @@ class Header {
       "HOME"
     );
     this.addEventListener(home_menu, "click", () => {
-      window.history.pushState("", "", "/");
       const urlChange = createUrlChangeEvent({
         detail: { href: "/" },
       });
@@ -67,7 +66,6 @@ class Header {
       "SIGNUP"
     );
     this.addEventListener(signup_menu, "click", () => {
-      window.history.pushState("", "", "/signup");
       const urlChange = createUrlChangeEvent({
         detail: { href: "/signup" },
       });
