@@ -7,7 +7,7 @@ class SignupView {
   }
   renderInput() {
     input("text", "name", "이름", true);
-    input("email", "name", "이메일", true);
+    input("email", "email", "이메일", true);
     input("text", "nickname", "닉네임", true);
   }
   renderSelect() {
