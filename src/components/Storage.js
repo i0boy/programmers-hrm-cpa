@@ -21,8 +21,8 @@ export const setPersonalInfo = async () => {
 };
 
 /**@type{() => PersonalInfo[]} */
-export const getPersonalInfo = () => {
-  const data = JSON.parse(localStorage.getItem(personalInfoToken));
+export const getPersonalInfos = () => {
+  const data = JSON.parse(localStorage.getItem(personalInfoToken)) || [];
   return data;
 };
 
@@ -51,4 +51,32 @@ export const setCardStatus = (idx, status) => {
 /**@type{(idx:string) => string} */
 export const getCardStatus = (idx) => {
   return getCardsStatus()[idx] ?? "card";
+};
+
+/**@type{(nickname:Partial<PersonalInfo>) => PersonalInfo|undefined} */
+export const getPersonalInfo = (keyValue) => {
+  return [...getPersonalInfos()].filter((d) =>
+    Object.entries(keyValue).some(([k, v]) => {
+      return d[k] === v;
+    })
+  )?.[0];
+};
+
+/**@type{(info:PersonalInfo) =>'success' |'exists'} */
+export const addPersonalInfo = (info) => {
+  const prevInfo = getPersonalInfo({
+    nickname: info.nickname,
+    email: info.email,
+  });
+  if (!prevInfo) {
+    const personInfos = getPersonalInfos();
+    const /**@type{PersonalInfo[]} */ newPersonInfos = [
+        ...personInfos,
+        { ...info },
+      ];
+    localStorage.setItem(personalInfoToken, JSON.stringify(newPersonInfos));
+    return "success";
+  } else {
+    return "exists";
+  }
 };

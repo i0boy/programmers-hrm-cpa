@@ -1,6 +1,7 @@
 import { button, input, select } from "./Form.js";
 import position from "../data/position.js";
 import mbti from "../data/mbti.js";
+import { addPersonalInfo } from "./Storage.js";
 class SignupView {
   constructor($main) {
     this.$main = $main;
@@ -30,9 +31,36 @@ class SignupView {
 
   render() {
     const form = this.createContainer();
+    this.submitForm(form);
     this.renderInput();
     this.renderSelect();
     this.renderButton();
+  }
+
+  submitForm($form) {
+    $form.addEventListener("submit", (e) => {
+      e.preventDefault();
+
+      let name = e.target.name.value;
+      let email = e.target.email.value;
+      let nickname = e.target.nickname.value;
+      const role = e.target.role.value;
+      const mbti = e.target.mbti.value;
+      const submitInfo = {
+        name,
+        email,
+        role,
+        mbti,
+        nickname,
+      };
+      const result = addPersonalInfo(submitInfo);
+      if (result === "success") {
+        alert("성공적으로 등록되었습니다");
+      }
+      if (result === "exists") {
+        alert("이메일 혹은 닉네임이 이미 등록되어 있습니다.");
+      }
+    });
   }
 }
 export default SignupView;

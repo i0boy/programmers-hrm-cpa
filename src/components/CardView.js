@@ -1,5 +1,5 @@
 import { cardDiv, cardPlane } from "./Card.js";
-import { getPersonalInfo } from "./Storage.js";
+import { getPersonalInfos } from "./Storage.js";
 
 // 카드 컨테이너 요소
 /**
@@ -15,7 +15,7 @@ class CardView {
   infiniteScroll(/**@type{HTMLElement}*/ container) {
     const target = () =>
       document.getElementById("cards_container").lastElementChild;
-    const personalInfo = getPersonalInfo();
+    const personalInfo = getPersonalInfos();
     const io = new IntersectionObserver(
       (entry) => {
         if (window.location.pathname !== this.$renderedUrl) {
@@ -55,7 +55,7 @@ class CardView {
     const containerDiv = document.createElement("div");
     containerDiv.setAttribute("id", "cards_container");
 
-    const personalInfo = getPersonalInfo();
+    const personalInfo = getPersonalInfos();
     personalInfo.slice(0, 3).forEach((cardData, i) => {
       const card = cardDiv(i + "");
       card.appendChild(cardPlane("front", cardData.nickname));
